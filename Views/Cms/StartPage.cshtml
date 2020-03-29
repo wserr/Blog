@@ -1,0 +1,10 @@
+@model Blog.Models.StartPageViewModel
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="container">
+    <h1>@Model.Title</h1>
+
+    @Html.Raw(Model.Intro)
+</div>

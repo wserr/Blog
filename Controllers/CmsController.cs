@@ -73,6 +73,19 @@ namespace Blog.Controllers
         /// </summary>
         /// <param name="id">The unique page id</param>
         /// <param name="draft">If a draft is requested</param>
+        [Route("startpage")]
+        public async Task<IActionResult> StartPage(Guid id, bool draft = false)
+        {
+            var model = await _loader.GetPageAsync<StartPageViewModel>(id, HttpContext.User, draft);
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// Gets the page with the given id.
+        /// </summary>
+        /// <param name="id">The unique page id</param>
+        /// <param name="draft">If a draft is requested</param>
         [Route("pagewide")]
         public async Task<IActionResult> PageWide(Guid id, bool draft = false)
         {

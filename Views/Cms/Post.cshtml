@@ -31,8 +31,8 @@
                 }
             </p>
         </header>
-        @Html.DisplayFor(m => m.Blocks)
+        @Html.Raw(Model.Content)
     </article>
 
-    <partial name="Partial/_PostCommentForm"></partial>
+    @* <partial name="Partial/_PostCommentForm"></partial> *@
 </div>
