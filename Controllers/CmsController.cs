@@ -60,6 +60,19 @@ namespace Blog.Controllers
         /// </summary>
         /// <param name="id">The unique page id</param>
         /// <param name="draft">If a draft is requested</param>
+        [Route("custompage")]
+        public async Task<IActionResult> CustomPage(Guid id, bool draft = false)
+        {
+            var model = await _loader.GetPageAsync<CustomPage>(id, HttpContext.User, draft);
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// Gets the page with the given id.
+        /// </summary>
+        /// <param name="id">The unique page id</param>
+        /// <param name="draft">If a draft is requested</param>
         [Route("pagewide")]
         public async Task<IActionResult> PageWide(Guid id, bool draft = false)
         {
