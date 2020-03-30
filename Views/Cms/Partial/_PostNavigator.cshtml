@@ -1,0 +1,28 @@
+@model Blog.Models.BlogPost
+@{
+    var blogId = Model.BlogId;
+    var otherPosts = await WebApp.Api.Posts.GetAllAsync(blogId);
+
+    var publishedPosts = otherPosts.Where(x => x.IsPublished);
+    var nextPost = publishedPosts.Where(X=>X.Published>Model.Published).OrderBy(X=>X.Published).FirstOrDefault();
+    var previousPost = publishedPosts.Where(X=>X.Published<Model.Published).OrderByDescending(X=>X.Published).FirstOrDefault();
+
+}
+
+
+@{
+
+    if(previousPost != null)
+    {
+        <a type="button" class="btn btn-outline-dark btn-sm" href="@previousPost.Slug">          
+                <i class="fas fa-angle-left col align-left fa-lg"></i>
+        </a>
+    }
+    if(nextPost != null)
+    {
+        <a type="button" class="btn btn-outline-dark btn-sm" href="@nextPost.Slug">          
+                <i class="fas fa-angle-right col align-left fa-lg"></i>
+        </a>
+    }
+}
+

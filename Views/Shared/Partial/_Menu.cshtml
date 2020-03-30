@@ -18,6 +18,7 @@
     <ul class="nav">
         @foreach (var item in WebApp.Site.Sitemap)
         {
+            
             <li class="nav-item @(item.Id == WebApp.PageId ? "active" : "")">
                 <a class="nav-link" href="@item.Permalink">@item.MenuTitle</a>
             </li>
