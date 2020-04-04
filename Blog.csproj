@@ -18,6 +18,7 @@
     <PackageReference Include="Piranha.Local.FileStorage" Version="8.1.0" />
     <PackageReference Include="Piranha.Manager" Version="8.1.0" />
     <PackageReference Include="Piranha.Manager.TinyMCE" Version="8.1.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
   </ItemGroup>
 
 </Project>
