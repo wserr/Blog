@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -45,6 +46,11 @@ namespace Blog
                     db.UseSqlite(Configuration.GetConnectionString("piranha")));
                 options.UseIdentityWithSeed<IdentitySQLiteDb>(db =>
                     db.UseSqlite(Configuration.GetConnectionString("piranha")));
+            });
+            services.AddHttpClient(name: "TemperatureMontior", configureClient: options =>
+            {
+                options.BaseAddress = new System.Uri("http://192.168.0.2:8081");
+                options.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json",1.0));
             });
         }
 

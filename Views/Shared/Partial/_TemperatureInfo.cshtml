@@ -1,0 +1,24 @@
+@using System.Net.Http
+@inject IHttpClientFactory httpClientFactory
+
+@{
+    string result = string.Empty;
+    try
+    {
+        var client = httpClientFactory.CreateClient(name: "TemperatureMonitor");
+        var request = new HttpRequestMessage(method: HttpMethod.Get, requestUri: "http://192.168.0.2:8081/TemperatureReading");
+
+        HttpResponseMessage response = await client.SendAsync(request);       
+        result = await response.Content.ReadAsStringAsync();
+    }
+    catch (System.Exception)
+    {
+        // TODO WIS log
+    }    
+
+    if (!string.IsNullOrEmpty(result))
+    {
+        <h6 class="small">@result</h6>
+    }
+
+}
