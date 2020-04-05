@@ -34,7 +34,7 @@
         @Html.Raw(Model.Content)
     </article>
 
-    @* <partial name="Partial/_PostCommentForm"></partial> *@
+    <partial name="Partial/_PostCommentForm"></partial>
 
     @await Html.PartialAsync("Partial/_PostNavigator",Model)
 </div>
