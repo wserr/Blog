@@ -112,6 +112,11 @@ namespace Blog.Controllers
         public async Task<IActionResult> Create(Guid id, BlogPost model)
         {
             ModelState.Remove("Category");
+            if(ModelState["g-recaptcha-response"].Errors.Count>0)
+            {
+                ModelState.AddModelError("GoogleReCaptchaResponse", ModelState["g-recaptcha-response"].Errors[0].ErrorMessage);
+                ModelState.Remove("g-recaptcha-response");
+            }
             if (ModelState.IsValid)
             {
                 // Create the comment

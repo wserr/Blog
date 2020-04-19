@@ -1,3 +1,4 @@
+using Blog.CustomAttributes;
 using Microsoft.AspNetCore.Mvc;
 using Piranha.AttributeBuilder;
 using Piranha.Extend;
@@ -34,5 +35,10 @@ namespace Blog.Models
         [BindProperty]
         [Required]
         public string CommentBody { get; set; }
+
+        [Required]
+        [GoogleReCaptchaValidation]
+        [BindProperty(Name = "g-recaptcha-response")]
+        public string GoogleReCaptchaResponse { get; set; }
     }
 }

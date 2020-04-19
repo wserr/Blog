@@ -1,3 +1,6 @@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
 @model Blog.Models.BlogPost
 @{
     var comments = await WebApp.Api.Posts.GetAllCommentsAsync(Model.Id);
@@ -6,7 +9,9 @@
     <div class="alert alert-warning mt-5 mb-5 pt-4">
         <form asp-controller="Cms" asp-action="Create" asp-fragment="comment" method="post">
             @Html.AntiForgeryToken()
-            @Html.HiddenFor(x=>x.Id)
+            @Html.HiddenFor(x => x.Id)
+
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <h4 class="mb-3">Leave a comment</h4>
@@ -21,7 +26,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <input asp-for="CommentAuthor" type="text" class="form-control form-control-sm" placeholder="Your name">
-                        <span asp-validation-for="CommentAuthor" class="text-danger"></span>    
+                        <span asp-validation-for="CommentAuthor" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -39,9 +44,15 @@
                 <textarea asp-for="CommentBody" rows="6" class="form-control form-control-sm" placeholder="Your awesome comment"></textarea>
                 <span asp-validation-for="CommentBody" class="text-danger"></span>
             </div>
-            <div class="form-group text-left">
-                <button class="btn btn-sm btn-success">Post Comment</button>
+
+            <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="@(Configuration.GetValue<String>("GoogleReCaptcha:ClientKey"))"></div>
+                <span asp-validation-for="GoogleReCaptchaResponse" class="text-danger"></span>
             </div>
+
+                <div class="form-group text-left">
+                    <button class="btn btn-sm btn-success">Post Comment</button>
+                </div>
         </form>
     </div>
     <div id="comments">

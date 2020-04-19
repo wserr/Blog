@@ -16,11 +16,13 @@
 
     <title>@ViewBag.Title</title>
 
-    @if (Model is Piranha.Models.IMeta) {
+    @if (Model is Piranha.Models.IMeta)
+    {
         <partial name="Partial/_Meta.cshtml" />
     }
 
     @RenderSection("head", required: false)
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div class="vh-100">
