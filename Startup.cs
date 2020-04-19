@@ -47,11 +47,6 @@ namespace Blog
                 options.UseIdentityWithSeed<IdentitySQLiteDb>(db =>
                     db.UseSqlite(Configuration.GetConnectionString("piranha")));
             });
-            services.AddHttpClient(name: "TemperatureMontior", configureClient: options =>
-            {
-                options.BaseAddress = new System.Uri("http://192.168.0.2:8081");
-                options.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json",1.0));
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

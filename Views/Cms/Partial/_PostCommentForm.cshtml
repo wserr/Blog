@@ -1,48 +1,51 @@
 @model Blog.Models.BlogPost
 @{
-    var comments = await WebApp.Api.Posts.GetAllCommentsAsync(Model.Id, pageSize: 0);
+    var comments = await WebApp.Api.Posts.GetAllCommentsAsync(Model.Id);
 }
+<div id="comment">
+    <div class="alert alert-warning mt-5 mb-5 pt-4">
+        <form asp-controller="Cms" asp-action="Create" asp-fragment="comment" method="post">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x=>x.Id)
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-@if (Model.EnableComments)
-{
-    <div id="comments">
-        @if (Model.IsCommentsOpen)
-        {
-            <div class="alert alert-warning mt-5 mb-5 pt-4">
-                <form asp-page-handler="SaveComment" method="post">
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("Id", Model.Id)
-
-                    <h4 class="mb-3">Leave a comment</h4>
-                    <p class="mb-4"><small>
-                        Please note that we won't show your email to others, or use it for sending
-                        unwanted emails. We will only use it to render your Gravatar image and to
-                        validate you as a real person.
-                    </small></p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input name="CommentAuthor" type="text" class="form-control form-control-sm" placeholder="Your name">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input name="CommentEmail" type="text" class="form-control form-control-sm" placeholder="Your email address">
-                            </div>
-                        </div>
-                    </div>
+            <h4 class="mb-3">Leave a comment</h4>
+            <p class="mb-4">
+                <small>
+                    Please note that we won't show your email to others, or use it for sending
+                    unwanted emails. We will only use it to render your Gravatar image and to
+                    validate you as a real person.
+                </small>
+            </p>
+            <div class="row">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <input name="CommentUrl" type="text" class="form-control form-control-sm" placeholder="An (optional) URL to your website">
+                        <input asp-for="CommentAuthor" type="text" class="form-control form-control-sm" placeholder="Your name">
+                        <span asp-validation-for="CommentAuthor" class="text-danger"></span>    
                     </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
-                        <textarea name="CommentBody" rows="6" class="form-control form-control-sm" placeholder="Your awesome comment"></textarea>
+                        <input asp-for="CommentEmail" type="text" class="form-control form-control-sm" placeholder="Your email address">
+                        <span asp-validation-for="CommentEmail" class="text-danger"></span>
                     </div>
-                    <div class="form-group text-left">
-                        <button class="btn btn-sm btn-success">Post Comment</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        }
+            <div class="form-group">
+                <input asp-for="CommentUrl" type="text" class="form-control form-control-sm" placeholder="An (optional) URL to your website">
+                <span asp-validation-for="CommentUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <textarea asp-for="CommentBody" rows="6" class="form-control form-control-sm" placeholder="Your awesome comment"></textarea>
+                <span asp-validation-for="CommentBody" class="text-danger"></span>
+            </div>
+            <div class="form-group text-left">
+                <button class="btn btn-sm btn-success">Post Comment</button>
+            </div>
+        </form>
+    </div>
+    <div id="comments">
         @Html.DisplayFor(m => comments)
     </div>
-}
+</div>
+

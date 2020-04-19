@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Piranha;
 using Piranha.AspNetCore.Services;
 using Blog.Models;
+using Piranha.Models;
 
 namespace Blog.Controllers
 {
@@ -106,5 +107,40 @@ namespace Blog.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Guid id, BlogPost model)
+        {
+            ModelState.Remove("Category");
+            if (ModelState.IsValid)
+            {
+                // Create the comment
+                var comment = new Comment
+                {
+                    IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                    UserAgent = Request.Headers.ContainsKey("User-Agent") ? Request.Headers["User-Agent"].ToString() : "",
+                    Author = model.CommentAuthor,
+                    Email = model.CommentEmail,
+                    Url = model.CommentUrl,
+                    Body = model.CommentBody
+                };
+
+                await _api.Posts.SaveCommentAndVerifyAsync(id, comment);
+                var Data = await _loader.GetPostAsync<PostBase>(id, HttpContext.User);
+                return Redirect(Data.Permalink + "#comments");
+
+            }
+            else
+            {
+                var m = await _loader.GetPostAsync<BlogPost>(id, HttpContext.User);
+                m.CommentAuthor = model.CommentAuthor;
+                m.CommentEmail = model.CommentEmail;
+                m.CommentUrl = model.CommentUrl;
+                m.CommentBody = model.CommentBody;
+                return View("post", m);
+            }
+
+        }
+
     }
 }
