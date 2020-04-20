@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RuntimeIdentifiers >linux-arm</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
