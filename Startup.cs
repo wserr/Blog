@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using Blog.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,10 @@ namespace Blog
                 options.UseIdentityWithSeed<IdentitySQLiteDb>(db =>
                     db.UseSqlite(Configuration.GetConnectionString("piranha")));
             });
+            var config = new NavigationConfiguration();
+            Configuration.Bind("Navigation", config);
+            services.AddSingleton(config);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

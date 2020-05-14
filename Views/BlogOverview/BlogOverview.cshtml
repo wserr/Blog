@@ -1,0 +1,26 @@
+﻿@using Piranha.Models;
+
+@{
+    ViewData["Title"] = "BlogOverview";
+}
+
+
+@model IEnumerable<DynamicPage>
+
+<div class="container">
+    <div class="card-columns">
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <span class="badge badge-secondary">@item.TypeId</span>
+                    <h4 class="card-title">@item.Title</h4>
+                    <p class="card-text">@item.MetaDescription</p>
+                    <a type="button" class="btn btn-outline-dark btn-sm" href="/@item.Slug">
+                        <i class="fas fa-angle-right col align-left fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
