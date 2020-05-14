@@ -1,15 +1,19 @@
 @using Microsoft.Extensions.Configuration;
-@inject IConfiguration Configuration;
+@using Blog.Models;
+@inject NavigationConfiguration config;
 
 @{
-    string startPage = Configuration.GetSection("MenuItems:StartPage:Name").Get<string>();
-    List<string> menuItems = Configuration.GetSection("MenuItems:MenuItems").Get<List<String>>();
 
     Dictionary<string, string> items = new Dictionary<string, string>();
-    items.Add(Configuration.GetSection("MenuItems:StartPage:Name").Get<string>(), "/" + Configuration.GetSection("MenuItems:StartPage:URL").Get<string>());
-    foreach (var item in menuItems)
+
+    foreach (var item in config.Pages)
     {
-        items.Add(item, $"/BlogOverview/{item}");
+        items.Add(item.Name, item.Url);
+    }
+
+    foreach (var item in config.Overviews)
+    {
+        items.Add(item.Name, $"/BlogOverview/{item.MetaKeyword}");
     }
 }
 
