@@ -40,12 +40,12 @@
     } else {
         <div class="row">
             <div class="col blog-filter-header">
-                <h1>Latest posts</h1>
+                <h1>Posts</h1>
             </div>
         </div>
     }
 
-    @foreach (var post in Model.Archive.Posts.OrderByDescending(x=>x.Published))
+    @foreach (var post in Model.Archive.Posts.OrderBy(x=>x.Published))
     {
         <article>
             <header>
