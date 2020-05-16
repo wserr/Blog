@@ -2,5 +2,9 @@
   {
     "outputFile": "wwwroot/assets/css/style.css",
     "inputFile": "assets/scss/style.scss"
+  },
+  {
+    "outputFile": "wwwroot/assets/css/bootstrap.custom.css",
+    "inputFile": "wwwroot/assets/css/bootstrap.custom.scss"
   }
 ]
