@@ -1,7 +1,7 @@
-echo "Deleting bin folder..."
-rm -r ../../bin
-echo "Deleting obj folder..."
-rm -r ../../obj
+#echo "Deleting bin folder..."
+#rm -r ../../bin
+#echo "Deleting obj folder..."
+#rm -r ../../obj
 echo "Build project..."
 dotnet publish -c Release -r linux-arm ../../Blog.csproj
 echo "Stop website on remote machine..."
